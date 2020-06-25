@@ -2,6 +2,7 @@
 // =============================================================
 var express = require("express");
 var path = require("path");
+const fs = require("fs");
 
 // Sets up the Express App
 // =============================================================
@@ -17,6 +18,15 @@ app.use(express.json());
 
 app.get("/notes", function (req, res) {
     res.sendFile(path.join(__dirname, "public", "notes.html"))
+});
+
+app.get("/api/notes", function (req, res) {
+    const notes = []
+    const data = fs.readFileSync(path.join(__dirname, "db", "db.json"));
+    JSON.parse(data).forEach(note => {
+        notes.push(note);
+    });
+    res.json(notes);
 });
 
 app.get("*", function (req, res) {

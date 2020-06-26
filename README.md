@@ -49,7 +49,7 @@ No License
 
 ## Credits
 
-Credits to cohort staff - Tish, Brandon and Peter, for the frontend code.
+Credits to cohort staff - Tish, Brandon and Peter - for the frontend code.
 
 ## Links
 

@@ -36,15 +36,29 @@ app.get("*", function (req, res) {
 
 app.post("/api/notes", function (req, res) {
     const newNotes = req.body;
+    newNotes.id = newNotes.title.replace(/\s+/g, "");
 
     console.log(newNotes);
 
-    notes = JSON.parse(fs.readFileSync(path.join(__dirname, "db", "db.json")));
+    const notes = JSON.parse(fs.readFileSync(path.join(__dirname, "db", "db.json")));
     notes.push(newNotes)
     fs.writeFileSync(path.join(__dirname, "db", "db.json"), JSON.stringify(notes));
 
     res.json(newNotes);
 });
+
+app.delete("/api/notes/:id", function (req, res) {
+    const myId = req.params.id;
+
+    let notes = JSON.parse(fs.readFileSync(path.join(__dirname, "db", "db.json")));
+    notes = notes.filter(note => note.id !== myId);
+
+    fs.writeFileSync(path.join(__dirname, "db", "db.json"), JSON.stringify(notes));
+
+    res.json(notes);
+});
+
+
 
 // Starts the server to begin listening
 // =============================================================

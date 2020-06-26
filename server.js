@@ -12,6 +12,7 @@ var PORT = process.env.PORT || 3000;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 // =============================================================
@@ -31,6 +32,18 @@ app.get("/api/notes", function (req, res) {
 
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname,"public", "index.html"))
+});
+
+app.post("/api/notes", function (req, res) {
+    const newNotes = req.body;
+
+    console.log(newNotes);
+
+    notes = JSON.parse(fs.readFileSync(path.join(__dirname, "db", "db.json")));
+    notes.push(newNotes)
+    fs.writeFileSync(path.join(__dirname, "db", "db.json"), JSON.stringify(notes));
+
+    res.json(newNotes);
 });
 
 // Starts the server to begin listening

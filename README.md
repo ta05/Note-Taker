@@ -2,9 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-None-green.svg)](https://shields.io/)
 
-## Site
-
--   https://note-taker-tolu.herokuapp.com
+https://note-taker-tolu.herokuapp.com
 
 ## Description
 
